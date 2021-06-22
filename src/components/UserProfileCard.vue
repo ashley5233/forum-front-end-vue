@@ -32,6 +32,24 @@
               </button></router-link
             >
           </p>
+          <p class="mt-3">
+            <button
+              type="button"
+              class="btn btn-danger"
+              v-if="user.isFollowed"
+              @click.stop.prevent="handleDeleteFollow"
+            >
+              取消追蹤
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-else
+              @click.stop.prevent="handleAddFollow"
+            >
+              追蹤
+            </button>
+          </p>
         </div>
       </div>
     </div>
@@ -51,6 +69,14 @@ export default {
     return {
       user: this.initialUser,
     };
+  },
+  methods: {
+    handleAddFollow() {
+      this.$emit("add-follow");
+    },
+    handleDeleteFollow() {
+      this.$emit("delete-follow");
+    },
   },
 };
 </script>

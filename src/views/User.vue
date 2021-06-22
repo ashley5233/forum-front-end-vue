@@ -1,11 +1,18 @@
 <template>
   <div class="container">
     <!-- UserProfileCard -->
-    <UserProfileCard :initial-user="user" />
+    <UserProfileCard
+      :initial-user="user"
+      @add-follow="addFollow"
+      @delete-follow="deleteFollow"
+    />
     <div class="row">
       <div class="col-md-4">
         <!-- UserFollowingsCard -->
-        <UserFollowingsCard :followings="user.profile.Followings" />
+        <UserFollowingsCard
+          :followings="user.profile.Followings"
+          :is-current-user="user.id"
+        />
         <br />
         <!-- UserFollowersCard -->
         <UserFollowersCard :followers="user.profile.Followers" />
@@ -15,7 +22,9 @@
         <UserCommentsCard :user-comments-card="user.profile.Comments" />
         <br />
         <!-- UserFavoritedRestaurantsCard -->
-        <UserFaoritedRestaurantsCard />
+        <UserFaoritedRestaurantsCard
+          :user-favorited-restaurants="user.profile.FavoritedRestaurants"
+        />
       </div>
     </div>
   </div>
@@ -1381,6 +1390,7 @@ export default {
   data() {
     return {
       user: [],
+      currentUserId: this.$route.params,
     };
   },
   created() {
@@ -1393,6 +1403,12 @@ export default {
         profile,
         isFollowed,
       };
+    },
+    addFollow() {
+      this.user.isFollowed = true;
+    },
+    deleteFollow() {
+      this.user.isFollowed = false;
     },
   },
 };

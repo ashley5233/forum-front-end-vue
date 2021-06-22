@@ -10,14 +10,14 @@
         </a>
         <h2>{{ user.name }}</h2>
         <span class="badge badge-secondary"
-          >追蹤人數：{{ user.Followers.length }}</span
+          >追蹤人數：{{ user.FollowerCount }}</span
         >
         <p class="mt-3">
           <button
             type="button"
             class="btn btn-danger"
             v-if="user.isFollowed"
-            @click.prevent="deleteFollowed"
+            @click.stop.prevent="deleteFollowed(user.id)"
           >
             取消追蹤
           </button>
@@ -25,7 +25,7 @@
             type="button"
             class="btn btn-primary"
             v-else
-            @click.prevent="addFollowed"
+            @click.stop.prevent="addFollowed(user.id)"
           >
             追蹤
           </button>
@@ -256,7 +256,7 @@ const dummyData = {
 import NavTabs from "../components/NavTabs.vue";
 
 export default {
-  name: "Users",
+  name: "UsersTop",
   components: {
     NavTabs,
   },
@@ -273,17 +273,13 @@ export default {
       const { users } = dummyData;
       this.users = users;
     },
-    addFollowed() {
-      this.users = {
-        ...this.users,
-        isFollowed: true,
-      };
+    addFollowed(userId) {
+      let user = this.users.find((user) => user.id === userId);
+      user.isFollowed = true;
     },
-    deleteFollowed() {
-      this.users = {
-        ...this.users,
-        isFollowed: false,
-      };
+    deleteFollowed(userId) {
+      let user = this.users.find((user) => user.id === userId);
+      user.isFollowed = false;
     },
   },
 };
