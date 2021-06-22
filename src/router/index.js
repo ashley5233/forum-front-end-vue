@@ -49,6 +49,16 @@ const routes = [
     component: () => import('../views/Restaurant.vue')
   },
   {
+    path: '/restaurants/:id/dashboard',
+    name: 'restaurant-dashboard',
+    component: () => import('../views/RestaurantDashboard.vue')
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import('../views/User')
+  },
+  {
     path: '*',
     name: 'not-found',
     component: Notfound,
