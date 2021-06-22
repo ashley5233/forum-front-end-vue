@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-4">
         <!-- UserFollowingsCard -->
-        <UserFollowingsCard />
+        <UserFollowingsCard :followings="user.profile.Followings" />
         <br />
         <!-- UserFollowersCard -->
         <UserFollowersCard />
