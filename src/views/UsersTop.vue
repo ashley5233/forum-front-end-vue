@@ -282,5 +282,6 @@ export default {
       user.isFollowed = false;
     },
   },
+  
 };
 </script>
