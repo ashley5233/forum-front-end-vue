@@ -54,6 +54,11 @@ const routes = [
     component: () => import('../views/RestaurantDashboard.vue')
   },
   {
+    path: 'users/:id/edit',
+    name: 'user-edit',
+    component: () => import('../views/UserEdit.vue')
+  },
+  {
     path: '/users/:id',
     name: 'users',
     component: () => import('../views/User')
@@ -82,6 +87,11 @@ const routes = [
     path: '/admin/restaurants/:id',
     name: 'admin-restaurant',
     component: () => import('../views/AdminRestaurant.vue')
+  },
+  {
+    path: '/admin/categories',
+    name: '/admin-categories',
+    component: () => import('../views/AdminCategories.vue')
   },
   {
     path: '*',

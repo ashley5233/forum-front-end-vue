@@ -26,7 +26,9 @@
             </li>
           </ul>
           <p>
-            <router-link to="/users/1/edit" v-if="user.profile.isAdmin"
+            <router-link
+              :to="{ name: 'user-edit', params: { id: user.profile.id } }"
+              v-if="user.profile.isAdmin"
               ><button type="submit" class="btn btn-primary">
                 edit
               </button></router-link
