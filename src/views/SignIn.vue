@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import authorizationAPI from "./../apis/authorization";
+
 export default {
   data() {
     return {
@@ -59,11 +61,14 @@ export default {
   },
   methods: {
     handleSubmit() {
-      const data = JSON.stringify({
-        email: this.email,
-        password: this.password,
-      });
-      console.log(data);
+      authorizationAPI
+        .signIn({
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log("response", response);
+        });
     },
   },
 };
