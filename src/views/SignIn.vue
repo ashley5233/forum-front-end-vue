@@ -66,44 +66,43 @@ export default {
     };
   },
   methods: {
-    handleSubmit(e) {
-      console.log(e.target);
-      if (!this.email || !this.password) {
-        Toast.fire({
-          icon: "warning",
-          title: "請填入 email 和 password",
-        });
-        return;
-      }
+    async handleSubmit(e) {
+      try {
+        console.log(e.target);
 
-      this.isprocessing = true;
-
-      authorizationAPI
-        .signIn({
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          console.log(response);
-          const { data } = response;
-
-          if (data.status !== "success") {
-            throw new Error(data.message);
-          }
-
-          localStorage.setItem("token", data.token);
-
-          this.$router.push("/restaurants");
-        })
-        .catch((error) => {
-          this.password = "";
+        if (!this.email || !this.password) {
           Toast.fire({
             icon: "warning",
-            title: "請確認您輸入了正確的帳號密碼",
+            title: "請填入 email 和 password",
           });
-          this.isprocessing = false;
-          console.log(error);
+          return;
+        }
+
+        this.isprocessing = true;
+
+        const response = await authorizationAPI.signIn({
+          email: this.email,
+          password: this.password,
         });
+
+        const { data } = response;
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        localStorage.setItem("token", data.token);
+
+        this.$router.push("/restaurants");
+      } catch (error) {
+        this.password = "";
+        Toast.fire({
+          icon: "warning",
+          title: "請確認您輸入了正確的帳號密碼",
+        });
+        this.isprocessing = false;
+        console.log(error);
+      }
     },
   },
 };
