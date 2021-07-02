@@ -44,7 +44,6 @@ export default {
     async fetchFeeds() {
       try {
         const response = await restaurantsAPI.getFeeds();
-        console.log(response);
         const { restaurants, comments } = response.data;
         this.restaurants = restaurants;
         this.comments = comments;

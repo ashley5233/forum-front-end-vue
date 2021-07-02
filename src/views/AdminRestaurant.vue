@@ -84,7 +84,6 @@ export default {
   },
   mounted() {
     const { id: restaurantId } = this.$route.params;
-    console.log(restaurantId);
     this.fetchRestaurant(restaurantId);
   },
   methods: {

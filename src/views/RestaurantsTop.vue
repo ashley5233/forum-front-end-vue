@@ -79,7 +79,6 @@ export default {
     async fetchRestaurantTop() {
       try {
         const { data } = await restaurantsAPI.getRestaurantsTop();
-        console.log(data);
         this.restaurants = data.restaurants;
       } catch (error) {
         Toast.fire({
