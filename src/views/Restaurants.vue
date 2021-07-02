@@ -15,6 +15,7 @@
 
     <!-- 分頁標籤 RestaurantPagination -->
     <RestaurantsPagination
+      v-if="totalPage.length > 1"
       :category-id="categoryId"
       :current-page="currentPage"
       :total-page="totalPage"
@@ -51,7 +52,13 @@ export default {
     };
   },
   created() {
-    this.fetchRestaurants({ queryPage: 1, quertCategoryId: "" });
+    const { page = "", categoryId = "" } = this.$route.query;
+    this.fetchRestaurants({ queryPage: page, quertCategoryId: categoryId });
+  },
+  beforeRouteUpdate(to, from, next) {
+    const { page = "", categoryId = "" } = to.query;
+    this.fetchRestaurants({ queryPage: page, quertCategoryId: categoryId });
+    next();
   },
   methods: {
     async fetchRestaurants({ queryPage, quertCategoryId }) {
@@ -60,7 +67,7 @@ export default {
           page: queryPage,
           categoryId: quertCategoryId,
         });
-        console.log(response);
+
         const {
           restaurants,
           categories,
