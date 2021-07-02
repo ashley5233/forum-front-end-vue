@@ -14,6 +14,21 @@ export default {
       return apiHelper.post('/admin/restaurants', formData, {
         headers: { Authorization: `Bearer ${getToken()}` }
       })
+    },
+    getRestaurants() {
+      return apiHelper.get('/admin/restaurants', {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      })
+    },
+    showRestaurant({ restaurantId }) {
+      return apiHelper.get(`/admin/restaurants/${restaurantId}`, {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      })
+    },
+    deleteRestaurant({ restaurantId }) {
+      return apiHelper.delete(`/admin/restaurants/${restaurantId}`, {
+        headers: { Authorization: `Bearer ${getToken()}` }
+      })
     }
   }
 }
