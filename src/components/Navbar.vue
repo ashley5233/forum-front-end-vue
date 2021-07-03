@@ -30,7 +30,7 @@
           <!-- is user is login -->
           <router-link to="#" class="text-white mr-3">
             {{ currentUser.name || "使用者" }} 您好
-          </router-link> 
+          </router-link>
           <!-- profile -->
           <router-link
             :to="{ name: 'users', params: { id: currentUser.id } }"
@@ -51,42 +51,11 @@
 </template>
 
 <script>
-//假設一個後端傳進來的 API 資料
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: "管理者",
-    email: "root@example.com",
-    image: "https://i.pravatar.cc/300",
-    isAdmin: true,
-  },
-  isAuthenticated: true,
-};
+import { mapState } from "vuex";
 
 export default {
-  data() {
-    return {
-      currentUser: {
-        id: -1,
-        name: "",
-        email: "",
-        image: "",
-        isAdmin: false,
-      },
-      isAuthenticated: false,
-    };
-  },
-  created() {
-    this.fetchUser();
-  },
-  methods: {
-    fetchUser() {
-      this.currentUser = {
-        ...this.currentUser,
-        ...dummyUser.currentUser,
-      };
-      this.isAuthenticated = dummyUser.isAuthenticated;
-    },
+  computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>
