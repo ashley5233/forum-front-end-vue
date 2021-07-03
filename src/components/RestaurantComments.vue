@@ -2,7 +2,7 @@
   <div>
     <h2 class="my-4">所有評論：</h2>
 
-    <div v-for="comment in restaurantComments" :key="comment.id">
+    <div v-for="comment in Comments" :key="comment.id">
       <blockquote class="blockquote mb-0">
         <button
           v-if="currentUser.isAdmin"
@@ -27,17 +27,7 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: "管理者",
-    email: "root@example.com",
-    image: "https://i.pravatar.cc/300",
-    isAdmin: true,
-  },
-  isAuthenticated: true,
-};
+import { mapState } from "vuex";
 
 export default {
   mixins: [fromNowFilter],
@@ -49,9 +39,21 @@ export default {
   },
   data() {
     return {
-      currentUser: dummyUser.currentUser,
+      Comments: this.restaurantComments,
     };
   },
+  watch: {
+    restaurantComments(newValue) {
+      this.Comments = {
+        ...this.Comments,
+        ...newValue,
+      };
+    },
+  },
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+
   methods: {
     handleDeleteButtonClick(commentId) {
       this.$emit("after-delete-comment", commentId);
