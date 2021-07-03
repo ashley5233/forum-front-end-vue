@@ -58,6 +58,7 @@ import authorizationAPI from "../apis/authorization";
 import { Toast } from "./../utils/helpers";
 
 export default {
+  name: "SignIn",
   data() {
     return {
       email: "",
@@ -84,12 +85,14 @@ export default {
           email: this.email,
           password: this.password,
         });
-
         const { data } = response;
 
         if (data.status !== "success") {
           throw new Error(data.message);
         }
+
+        // 將資料傳到 Vuex 中
+        this.$store.commit("setCurrentUser", data.user);
 
         localStorage.setItem("token", data.token);
 
